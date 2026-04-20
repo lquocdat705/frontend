@@ -1,7 +1,21 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, onMounted } from 'vue'
+
+const message = ref('')
+
+onMounted(async () => {
+  try {
+    const res = await fetch('https://serverapi-fn93.onrender.com')
+    message.value = await res.text()
+  } catch (err) {
+    console.error(err)
+  }
+})
 </script>
 
 <template>
-  <HelloWorld />
+  <div>
+    <h1>Vue + ASP.NET CI/CD Demo</h1>
+    <p>Backend says: {{ message }}</p>
+  </div>
 </template>
